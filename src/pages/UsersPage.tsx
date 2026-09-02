@@ -1,6 +1,6 @@
-
 import AddIcon from '@mui/icons-material/Add'
 import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
@@ -9,6 +9,7 @@ import { UserCard } from '../components/UserCard'
 import { UserFormDialog } from '../components/UserFormDialog'
 import { useUsers } from '../hooks/useUsers'
 import type { NewUser, User } from '../services/userService'
+
 
 export function UsersPage() {
     const { users, loading, error, saving, addUser, editUser, removeUser } =
@@ -60,16 +61,17 @@ export function UsersPage() {
                 </Stack>
 
                 <AsyncState loading={loading} error={error} empty={!users.length}>
-                    <Stack spacing={2}>
+                    <Grid container spacing={2}>
                         {users.map((user) => (
-                            <UserCard
-                                key={user.id}
-                                user={user}
-                                onEdit={handleStartEdit}
-                                onDelete={handleDelete}
-                            />
+                            <Grid key={user.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                                <UserCard
+                                    user={user}
+                                    onEdit={handleStartEdit}
+                                    onDelete={handleDelete}
+                                />
+                            </Grid>
                         ))}
-                    </Stack>
+                    </Grid>
                 </AsyncState>
             </Stack>
 

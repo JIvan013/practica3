@@ -1,8 +1,7 @@
-
-
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import Avatar from '@mui/material/Avatar'
+import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import IconButton from '@mui/material/IconButton'
@@ -22,39 +21,44 @@ type UserCardProps = {
 
 export function UserCard({ user, onEdit, onDelete }: UserCardProps) {
     return (
-        <Card>
+        <Card sx={{ height: '100%' }}>
             <CardContent>
-                <Stack direction="row" spacing={2} alignItems="center">
-                    <Avatar sx={{ bgcolor: 'primary.main', width: 48, height: 48 }}>
+                <Stack direction="row" justifyContent="space-between">
+                    <IconButton
+                        size="small"
+                        aria-label={`Editar ${user.name}`}
+                        onClick={() => onEdit(user)}
+                    >
+                        <EditIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton
+                        size="small"
+                        aria-label={`Eliminar ${user.name}`}
+                        color="error"
+                        onClick={() => onDelete(user)}
+                    >
+                        <DeleteIcon fontSize="small" />
+                    </IconButton>
+                </Stack>
+
+                <Stack spacing={0.5} alignItems="center" sx={{ mt: -1 }}>
+                    <Avatar sx={{ bgcolor: 'primary.main', width: 56, height: 56 }}>
                         {initials(user.name)}
                     </Avatar>
 
-                    <Stack spacing={0.25} sx={{ flexGrow: 1 }}>
-                        <Typography variant="subtitle1">{user.name}</Typography>
-                        <Typography variant="body2" color="text.secondary">
+                    <Box sx={{ textAlign: 'center', width: '100%' }}>
+                        <Typography variant="subtitle1" noWrap>
+                            {user.name}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" noWrap>
                             @{user.username}
                         </Typography>
-                        <Typography variant="body2">{user.email}</Typography>
-                    </Stack>
-
-                    <Stack direction="row">
-                        <IconButton
-                            aria-label={`Editar ${user.name}`}
-                            onClick={() => onEdit(user)}
-                        >
-                            <EditIcon />
-                        </IconButton>
-                        <IconButton
-                            aria-label={`Eliminar ${user.name}`}
-                            color="error"
-                            onClick={() => onDelete(user)}
-                        >
-                            <DeleteIcon />
-                        </IconButton>
-                    </Stack>
+                        <Typography variant="body2" color="primary" noWrap>
+                            {user.email}
+                        </Typography>
+                    </Box>
                 </Stack>
             </CardContent>
         </Card>
     )
 }
-
